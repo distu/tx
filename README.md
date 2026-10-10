@@ -1,5 +1,7 @@
 # tx — private meeting capture and voice dictation for macOS
 
+[![Swift tests](https://github.com/distu/tx/actions/workflows/ci.yml/badge.svg)](https://github.com/distu/tx/actions/workflows/ci.yml)
+
 **Capture the conversations you choose, turn speech into searchable text, and keep control of your audio.** tx is an open source, native macOS menu bar app built with SwiftUI, Core Audio process taps, WhisperKit, and SQLite.
 
 It records each selected app process into separate application and microphone tracks, transcribes recordings, and organizes sessions in a searchable library. A global Fn shortcut also lets you dictate into the app you are using.
@@ -98,6 +100,8 @@ The macOS app target is `TxApp`; the capture, transcription, database, and proce
 - Expand contributor friendly test fixtures without real user audio.
 
 Roadmap items are plans, not release promises. Contributions and careful bug reports are welcome.
+
+If tx helps you, consider starring the repository so other macOS users can find it. Questions belong in [Discussions](https://github.com/distu/tx/discussions); reproducible bugs belong in [Issues](https://github.com/distu/tx/issues).
 
 ## License
 
