@@ -15,6 +15,7 @@ struct TxApp: App {
                 MenuBarContent()
                     .environment(appState)
                     .environment(\.locale, interfaceLocale)
+                    .id(interfaceLocale.identifier)
                     .frame(width: 420, height: 520)
             } else if let initializationError {
                 VStack(spacing: 12) {
@@ -46,6 +47,7 @@ struct TxApp: App {
                 MenuBarContent()
                     .environment(appState)
                     .environment(\.locale, interfaceLocale)
+                    .id(interfaceLocale.identifier)
                     .frame(width: 420, height: 520)
             }
         }
@@ -57,6 +59,7 @@ struct TxApp: App {
                 MainWindow()
                     .environment(appState)
                     .environment(\.locale, interfaceLocale)
+                    .id(interfaceLocale.identifier)
             } else {
                 Text("Carregando…")
             }
@@ -69,6 +72,7 @@ struct TxApp: App {
                 DictationHistoryView()
                     .environment(appState)
                     .environment(\.locale, interfaceLocale)
+                    .id(interfaceLocale.identifier)
             } else {
                 Text("Carregando…")
             }
@@ -78,6 +82,7 @@ struct TxApp: App {
         Window("tx — Conserta texto", id: "text-fix") {
             TextFixView()
                 .environment(\.locale, interfaceLocale)
+                .id(interfaceLocale.identifier)
         }
         .defaultSize(width: 640, height: 480)
 
@@ -86,6 +91,7 @@ struct TxApp: App {
                 DictationDebugView()
                     .environment(appState)
                     .environment(\.locale, interfaceLocale)
+                    .id(interfaceLocale.identifier)
             } else {
                 Text("Carregando…")
             }
