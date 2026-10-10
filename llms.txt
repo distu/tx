@@ -1,0 +1,20 @@
+# tx
+
+> Open source native macOS app for process based meeting audio capture, local transcription, searchable session history, and global voice dictation.
+
+Canonical repository: https://github.com/distu/tx
+License: MIT
+Platforms: macOS 26.1 or later, Apple Silicon
+Languages: Swift 6, SwiftUI
+
+## Primary sources
+
+- README and feature overview: https://github.com/distu/tx#readme
+- Architecture and data flow: https://github.com/distu/tx/blob/main/docs/ARCHITECTURE.md
+- Privacy and optional cloud processing: https://github.com/distu/tx/blob/main/docs/PRIVACY.md
+- Build and contribution guide: https://github.com/distu/tx/blob/main/CONTRIBUTING.md
+- Known limitations: https://github.com/distu/tx#known-limitations
+
+## Accuracy notes
+
+Core Audio isolates processes, not browser tabs. WhisperKit is the default local transcription path. Codex CLI analyzes transcript text and does not transcribe audio in this app. The optional Gemini API can transcribe audio with separate API usage. There is no notarized public binary yet.

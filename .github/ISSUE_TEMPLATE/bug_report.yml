@@ -1,0 +1,34 @@
+name: Bug report
+description: Report a reproducible tx problem using synthetic details only.
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not include real recordings, transcripts, participant names, meeting URLs, logs with account details, or credentials. Use synthetic examples."
+  - type: textarea
+    id: issue
+    attributes:
+      label: What happened?
+      description: Describe the actual and expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include the app or browser, meeting client, and whether the optional extension was enabled.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: macOS version, Mac chip, browser/app version, and tx commit or version.
+    validations:
+      required: true
+  - type: textarea
+    id: checks
+    attributes:
+      label: Checks already performed
+      description: For capture issues, include the HUD state and whether saved tracks were decodable, without sharing the audio.

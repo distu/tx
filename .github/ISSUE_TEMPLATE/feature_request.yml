@@ -1,0 +1,19 @@
+name: Feature request
+description: Suggest a focused improvement to tx.
+title: "[Feature] "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: What workflow is difficult today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the user visible result and any privacy implications.
+    validations:
+      required: true

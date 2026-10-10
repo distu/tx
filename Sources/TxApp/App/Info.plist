@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>pt_BR</string>
+    <key>CFBundleExecutable</key>
+    <string>tx</string>
+    <key>CFBundleIdentifier</key>
+    <string>dev.distuai.tx</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
+    <key>CFBundleName</key>
+    <string>tx</string>
+    <key>CFBundleDisplayName</key>
+    <string>tx</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>0.1.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>26.1</string>
+    <key>LSUIElement</key>
+    <true/>
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.productivity</string>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+    <key>NSHumanReadableCopyright</key>
+    <string>Copyright © 2026 distuai. Todos os direitos reservados.</string>
+    <key>NSAudioCaptureUsageDescription</key>
+    <string>O tx captura o áudio de reuniões em apps específicos (Chrome, Zoom, Teams) para gerar transcrições locais, sem nunca enviar áudio para servidores externos.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>O tx grava sua voz pelo microfone para transcrever o que você fala nas reuniões, em paralelo com o áudio do app.</string>
+    <key>NSAppleEventsUsageDescription</key>
+    <string>O tx consulta títulos e URLs das abas Google Meet no Arc ou Chrome para identificá-las antes de gravar o áudio da instância do navegador.</string>
+    <key>NSAccessibilityUsageDescription</key>
+    <string>O tx lê o título da janela dos apps de reunião para detectar automaticamente quando uma chamada começa e sintetiza o atalho Cmd+V para colar o texto ditado no app em foco.</string>
+    <key>NSInputMonitoringUsageDescription</key>
+    <string>O tx observa a tecla Fn e o ESC globalmente para ativar e cancelar o ditado por voz sem precisar mudar de app.</string>
+    <key>NSSystemAdministrationUsageDescription</key>
+    <string>O tx usa Core Audio Taps para capturar o áudio de cada instância de app. Abas da mesma instância compartilham a captura.</string>
+</dict>
+</plist>
