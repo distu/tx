@@ -25,7 +25,7 @@ struct DictationHistoryView: View {
                 .onChange(of: search) { _, _ in reload() }
 
             if let retryError {
-                Text("Retry: \(retryError)")
+                Text("Retry: \(InterfaceStrings.text(retryError))")
                     .font(.caption)
                     .foregroundStyle(.orange)
                     .padding(8)
@@ -98,7 +98,7 @@ struct DictationHistoryView: View {
                         Image(systemName: "doc.on.doc").foregroundStyle(.secondary)
                     }
                     .buttonStyle(.borderless)
-                    .help("Copiar texto")
+                    .help(InterfaceStrings.text("Copiar texto"))
                 }
                 if let audio = d.audioPath, FileManager.default.fileExists(atPath: audio.path) {
                     Button {
@@ -108,7 +108,7 @@ struct DictationHistoryView: View {
                             .foregroundStyle(.blue)
                     }
                     .buttonStyle(.borderless)
-                    .help("Ouvir áudio (inline)")
+                    .help(InterfaceStrings.text("Ouvir áudio (inline)"))
 
                     Button {
                         NSWorkspace.shared.activateFileViewerSelecting([audio])
@@ -116,7 +116,7 @@ struct DictationHistoryView: View {
                         Image(systemName: "folder").foregroundStyle(.secondary)
                     }
                     .buttonStyle(.borderless)
-                    .help("Revelar no Finder")
+                    .help(InterfaceStrings.text("Revelar no Finder"))
 
                     if isFailed {
                         if retryingId == d.id {
@@ -128,15 +128,15 @@ struct DictationHistoryView: View {
                                 Image(systemName: "arrow.clockwise.circle").foregroundStyle(.orange)
                             }
                             .buttonStyle(.borderless)
-                            .help("Tentar transcrever novamente (com ganho digital)")
+                            .help(InterfaceStrings.text("Tentar transcrever novamente (com ganho digital)"))
                         }
                     }
                 }
             }
             HStack(spacing: 12) {
-                Text(d.startedAt.formatted(date: .abbreviated, time: .shortened))
+                Text(InterfaceStrings.date(d.startedAt))
                 Text("·")
-                Text("\(d.wordCount) palavras")
+                Text(InterfaceStrings.format("%d words", d.wordCount))
                 Text("·")
                 Text(formatDuration(d.durationMs))
                 if let app = d.targetApp {

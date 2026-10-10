@@ -58,6 +58,7 @@ private final class BorderlessFloatingWindow: NSWindow {
 
 struct RecordingPillView: View {
     @Environment(AppState.self) private var appState
+    @AppStorage(InterfaceLanguage.preferenceKey) private var languagePreference = InterfaceLanguage.system.rawValue
 
     var body: some View {
         ZStack {
@@ -101,6 +102,7 @@ struct RecordingPillView: View {
             }
         }
         .frame(width: 260, height: 60)
+        .environment(\.locale, InterfaceLanguage.resolved(preference: InterfaceLanguage(rawValue: languagePreference) ?? .system).locale)
     }
 
     private var firstActive: (UUID, AudioPipeline)? {

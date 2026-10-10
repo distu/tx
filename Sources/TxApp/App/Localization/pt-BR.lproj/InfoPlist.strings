@@ -1,0 +1,6 @@
+"NSAudioCaptureUsageDescription" = "O tx captura áudio de apps de reunião selecionados para gerar transcrições. A transcrição opcional pelo Gemini envia áudio ao Google somente quando ativada.";
+"NSMicrophoneUsageDescription" = "O tx grava o microfone durante o ditado ou quando confirma que o microfone da reunião está desmutado.";
+"NSAppleEventsUsageDescription" = "O tx lê títulos e URLs das abas Meet no Arc ou Chrome para identificar reuniões antes de gravar o áudio do navegador.";
+"NSAccessibilityUsageDescription" = "O tx lê títulos de janelas de reunião, verifica o botão do microfone da chamada e cola texto ditado no app ativo.";
+"NSInputMonitoringUsageDescription" = "O tx observa Fn e Esc globalmente para iniciar e cancelar o ditado por voz.";
+"NSSystemAdministrationUsageDescription" = "O tx usa Core Audio Taps para capturar áudio de cada processo de app. Abas do mesmo processo compartilham a captura.";

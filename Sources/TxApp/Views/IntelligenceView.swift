@@ -90,10 +90,10 @@ struct IntelligenceSheet: View {
                 if isGenerating {
                     HStack(spacing: 8) {
                         ProgressView().controlSize(.small)
-                        Text("Gerando \(mode.displayName)…")
+                        Text(InterfaceStrings.format("Generating %@…", InterfaceStrings.text(mode.displayName)))
                     }
                 } else {
-                    Label("Gerar \(mode.displayName)", systemImage: mode.systemImage)
+                    Label(InterfaceStrings.format("Generate %@", InterfaceStrings.text(mode.displayName)), systemImage: mode.systemImage)
                 }
             }
             .buttonStyle(.borderedProminent)
@@ -124,7 +124,7 @@ struct IntelligenceSheet: View {
             } else {
                 VStack(spacing: 16) {
                     ProgressView()
-                    Text("Analisando transcrição com \(intelligenceProvider == "codex" ? "Codex" : "Gemini")…")
+                    Text(InterfaceStrings.format("Analyzing transcript with %@…", intelligenceProvider == "codex" ? "Codex" : "Gemini"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -192,9 +192,9 @@ private struct ModeCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Label(mode.displayName, systemImage: mode.systemImage)
+            Label(InterfaceStrings.text(mode.displayName), systemImage: mode.systemImage)
                 .font(.subheadline.bold())
-            Text(mode.description)
+            Text(InterfaceStrings.text(mode.description))
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .lineLimit(3)
@@ -225,7 +225,7 @@ private struct ArtifactResultView: View {
             HStack {
                 Image(systemName: artifact.mode.systemImage)
                     .foregroundStyle(.blue)
-                Text(artifact.mode.displayName)
+                Text(InterfaceStrings.text(artifact.mode.displayName))
                     .font(.subheadline.bold())
                 Text("·")
                     .foregroundStyle(.tertiary)

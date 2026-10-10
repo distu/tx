@@ -6,6 +6,7 @@ Canonical repository: https://github.com/distu/tx
 License: MIT
 Platforms: macOS 26.1 or later, Apple Silicon
 Languages: Swift 6, SwiftUI
+Interface: English and Brazilian Portuguese, with macOS primary-language detection and a manual selector
 
 ## Primary sources
 

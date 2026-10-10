@@ -1,0 +1,6 @@
+"NSAudioCaptureUsageDescription" = "tx captures audio from selected meeting apps to create transcripts. Optional Gemini transcription sends audio to Google only when enabled.";
+"NSMicrophoneUsageDescription" = "tx records your microphone when dictating or when a meeting's microphone state is confirmed as unmuted.";
+"NSAppleEventsUsageDescription" = "tx reads Meet tab titles and URLs in Arc or Chrome to identify meetings before recording browser audio.";
+"NSAccessibilityUsageDescription" = "tx reads meeting window titles, checks call microphone controls, and pastes dictated text into the active app.";
+"NSInputMonitoringUsageDescription" = "tx observes Fn and Esc globally to start and cancel voice dictation.";
+"NSSystemAdministrationUsageDescription" = "tx uses Core Audio Taps to capture each app process. Tabs in one process share the same audio capture.";

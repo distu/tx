@@ -120,6 +120,7 @@ struct DictationHUDView: View {
     let coordinator: DictationCoordinator
     let recordingManager: RecordingManager
     @Environment(\.openWindow) private var openWindow
+    @AppStorage(InterfaceLanguage.preferenceKey) private var languagePreference = InterfaceLanguage.system.rawValue
     @State private var now = Date()
 
     var body: some View {
@@ -150,6 +151,7 @@ struct DictationHUDView: View {
                 try? await Task.sleep(for: .milliseconds(500))
             }
         }
+        .environment(\.locale, InterfaceLanguage.resolved(preference: InterfaceLanguage(rawValue: languagePreference) ?? .system).locale)
     }
 
     /// Idle: acesso rápido à biblioteca, ditados e captura de voz.
@@ -162,7 +164,7 @@ struct DictationHUDView: View {
                     .frame(width: 36, height: 40)
             }
             .buttonStyle(.borderless)
-            .help("Conserta texto colado (junta linhas hard-wrap do terminal)")
+            .help(InterfaceStrings.text("Conserta texto colado (junta linhas hard-wrap do terminal)"))
 
             divider
 
@@ -173,7 +175,7 @@ struct DictationHUDView: View {
                     .frame(width: 40, height: 40)
             }
             .buttonStyle(.borderless)
-            .help("Abrir gravações e transcrever áudio salvo")
+            .help(InterfaceStrings.text("Abrir gravações e transcrever áudio salvo"))
 
             divider
 
@@ -184,7 +186,7 @@ struct DictationHUDView: View {
                     .frame(width: 36, height: 40)
             }
             .buttonStyle(.borderless)
-            .help("Abrir histórico de ditados")
+            .help(InterfaceStrings.text("Abrir histórico de ditados"))
 
             divider
 
@@ -195,7 +197,7 @@ struct DictationHUDView: View {
                     .frame(width: 40, height: 40)
             }
             .buttonStyle(.borderless)
-            .help("Clique para começar a ditar (ou segure Fn)")
+            .help(InterfaceStrings.text("Clique para começar a ditar (ou segure Fn)"))
         }
         .frame(width: 160, height: 40)
     }
@@ -245,7 +247,7 @@ struct DictationHUDView: View {
                         .foregroundStyle(.orange)
                 }
                 .buttonStyle(.borderless)
-                .help("Reprocessar último áudio")
+                .help(InterfaceStrings.text("Reprocessar último áudio"))
             }
 
             Button(action: { coordinator.cancelFromHUD() }) {
@@ -254,7 +256,7 @@ struct DictationHUDView: View {
                     .foregroundStyle(.white.opacity(0.7))
             }
             .buttonStyle(.borderless)
-            .help("Cancelar (ESC)")
+            .help(InterfaceStrings.text("Cancelar (ESC)"))
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 10)
@@ -300,7 +302,7 @@ struct DictationHUDView: View {
                         .foregroundStyle(.yellow)
                 }
                 .buttonStyle(.borderless)
-                .help("Parar gravação travada")
+                .help(InterfaceStrings.text("Parar gravação travada"))
             } else {
                 Image(systemName: "mic.fill")
                     .font(.system(size: 13))
@@ -380,8 +382,8 @@ private struct RecordingHealthRow: View {
             }
             .frame(width: 62, height: 16)
             VStack(alignment: .leading, spacing: 1) {
-                Text(appHealth).foregroundStyle(appHealth == "Capturando" ? .blue : .orange)
-                Text(micHealth).foregroundStyle(micHealth == "Capturando" ? .green : .orange)
+                Text(InterfaceStrings.text(appHealth)).foregroundStyle(appHealth == "Capturando" ? .blue : .orange)
+                Text(InterfaceStrings.text(micHealth)).foregroundStyle(micHealth == "Capturando" ? .green : .orange)
             }
             .font(.system(size: 8))
             .lineLimit(1)
@@ -392,7 +394,7 @@ private struct RecordingHealthRow: View {
         .padding(.horizontal, 9)
         .frame(height: 38)
         .overlay(alignment: .bottom) { Rectangle().fill(.white.opacity(0.1)).frame(height: 0.5) }
-        .help("App: \(appHealth), \(pipeline.appWrittenFrames) quadros; mic: \(micHealth), \(pipeline.micWrittenFrames) quadros")
+        .help(InterfaceStrings.format("App: %@, %lld frames; mic: %@, %lld frames", InterfaceStrings.text(appHealth), pipeline.appWrittenFrames, InterfaceStrings.text(micHealth), pipeline.micWrittenFrames))
     }
 }
 

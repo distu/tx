@@ -78,7 +78,7 @@ struct MainWindow: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(hit.snippet)
                             .lineLimit(3)
-                        Text("Segmento \(hit.segment.startMs / 1000)s")
+                        Text(InterfaceStrings.format("Segment %llds", hit.segment.startMs / 1000))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -94,7 +94,7 @@ struct MainWindow: View {
                 }
             }
         }
-        .navigationTitle(state.searchText.isEmpty ? "Sessões" : "Resultados de busca")
+        .navigationTitle(InterfaceStrings.text(state.searchText.isEmpty ? "Sessões" : "Resultados de busca"))
     }
 
     private func load() {
@@ -135,7 +135,7 @@ struct SessionRow: View {
                     .font(.headline)
                     .lineLimit(1)
                 HStack(spacing: 8) {
-                    Text(session.startedAt.formatted(date: .abbreviated, time: .omitted))
+                    Text(InterfaceStrings.date(session.startedAt, time: .omitted))
                         .lineLimit(1)
                     if let duration = session.durationSeconds {
                         Text(Self.formatDuration(duration))
@@ -244,7 +244,7 @@ struct SessionDetailView: View {
                             }
                         }
                     } label: {
-                        Label(liveSession.status == .recorded ? "Transcrever agora" : "Retentar transcrição", systemImage: "text.bubble")
+                        Label(InterfaceStrings.text(liveSession.status == .recorded ? "Transcrever agora" : "Retentar transcrição"), systemImage: "text.bubble")
                     }
                 }
                 Button {
@@ -290,7 +290,7 @@ struct SessionDetailView: View {
             }
 
             HStack(spacing: 12) {
-                Label(liveSession.startedAt.formatted(date: .abbreviated, time: .shortened), systemImage: "calendar")
+                Label(InterfaceStrings.date(liveSession.startedAt), systemImage: "calendar")
                 if let duration = liveSession.durationSeconds {
                     Label(formatDuration(duration), systemImage: "clock")
                 }
@@ -305,7 +305,7 @@ struct SessionDetailView: View {
             .foregroundStyle(.secondary)
 
             if !audioSummary.isEmpty {
-                Label(audioSummary, systemImage: audioWarning ? "exclamationmark.triangle" : "waveform")
+                Label(InterfaceStrings.text(audioSummary), systemImage: audioWarning ? "exclamationmark.triangle" : "waveform")
                     .font(.caption)
                     .foregroundStyle(audioWarning ? .orange : .secondary)
             }
@@ -335,11 +335,11 @@ struct SessionDetailView: View {
         VStack(alignment: .leading, spacing: 10) {
             if segments.isEmpty {
                 ContentUnavailableView(
-                    liveSession.status == .done ? "Nenhuma fala detectada" : "Sem transcrição ainda",
+                    InterfaceStrings.text(liveSession.status == .done ? "Nenhuma fala detectada" : "Sem transcrição ainda"),
                     systemImage: "waveform",
-                    description: Text(liveSession.status == .transcribing ? "Transcrevendo…" :
+                    description: Text(InterfaceStrings.text(liveSession.status == .transcribing ? "Transcrevendo…" :
                         liveSession.status == .recorded ? "Áudio salvo. Clique em Transcrever agora na barra de ferramentas." :
-                        liveSession.status == .done ? "O áudio foi analisado, mas não houve fala com sinal suficiente." : "Nenhum segmento.")
+                        liveSession.status == .done ? "O áudio foi analisado, mas não houve fala com sinal suficiente." : "Nenhum segmento."))
                 )
                 .frame(maxWidth: .infinity, minHeight: 200)
             } else {
@@ -362,11 +362,11 @@ struct SessionDetailView: View {
             let appSeconds = audioDuration(liveSession.appAudioPath)
             let micSeconds = audioDuration(liveSession.micAudioPath)
             if liveSession.endedAt != nil {
-                audioSummary = "App: \(appSeconds.map(formatDuration) ?? "ausente") · Mic: \(micSeconds.map(formatDuration) ?? "ausente")"
+                audioSummary = InterfaceStrings.format("App: %@ · Mic: %@", appSeconds.map(formatDuration) ?? InterfaceStrings.text("ausente"), micSeconds.map(formatDuration) ?? InterfaceStrings.text("ausente"))
                 let expected = liveSession.durationSeconds ?? 0
                 audioWarning = expected > 30 && (appSeconds ?? 0) < expected * 0.5 ||
                     expected > 30 && (micSeconds ?? 0) < expected * 0.5
-                if audioWarning { audioSummary += " · Canal curto ou pausas na gravação" }
+                if audioWarning { audioSummary += InterfaceStrings.text(" · Canal curto ou pausas na gravação") }
             }
         } catch {
             TxLogger.ui.error("Detail load failed: \(error.localizedDescription, privacy: .public)")
@@ -443,7 +443,7 @@ struct SegmentRow: View {
     }
 
     private var speakerLabel: String {
-        segment.speaker == .you ? "Você" : "Outros"
+        InterfaceStrings.text(segment.speaker == .you ? "Você" : "Outros")
     }
 }
 

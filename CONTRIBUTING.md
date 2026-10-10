@@ -5,7 +5,7 @@ Thanks for helping make meeting capture and dictation more reliable and understa
 ## Good first contributions
 
 - Reproduce a browser or meeting client detection issue with **synthetic** details.
-- Add an accessibility improvement or English localization.
+- Improve accessibility or the English and Brazilian Portuguese translations.
 - Improve a focused unit test for process isolation, mute state, or transcription output.
 - Improve documentation for a supported macOS version or device.
 
@@ -22,6 +22,12 @@ swift test
 ```
 
 Use a separate test profile for manual UI work. Do not run experiments against personal recordings or a production database. See [Architecture](docs/ARCHITECTURE.md) and [Troubleshooting](docs/TROUBLESHOOTING.md).
+
+## Interface translations
+
+The app offers **System default**, **English**, and **Português (Brasil)** in Settings → General. The system choice resolves to Brazilian Portuguese when the Mac's primary language is `pt-BR`, and English otherwise. Source keys in SwiftUI are mostly Portuguese for compatibility with the original interface. Add English entries to `Sources/TxApp/App/Localization/en.lproj/Localizable.strings`; add Portuguese entries for new English source keys to the matching `pt-BR.lproj` file. Runtime strings use `InterfaceStrings`.
+
+The app bundle is assembled by `scripts/build-app.sh`, which copies both `.lproj` directories into `Contents/Resources`. When changing translations, check both languages in the isolated demo profile and keep screenshots free of real meeting data.
 
 ## Pull requests
 

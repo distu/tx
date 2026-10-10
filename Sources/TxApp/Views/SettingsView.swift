@@ -4,6 +4,7 @@ import CoreAudio
 
 struct SettingsView: View {
     @Environment(AppState.self) private var appState
+    @AppStorage(InterfaceLanguage.preferenceKey) private var languagePreference = InterfaceLanguage.system.rawValue
 
     var body: some View {
         TabView {
@@ -22,6 +23,7 @@ struct SettingsView: View {
             LogsSettingsTab()
                 .tabItem { Label("Logs", systemImage: "terminal") }
         }
+        .id(languagePreference)
         .frame(width: 720, height: 560)
     }
 }
@@ -29,9 +31,18 @@ struct SettingsView: View {
 struct GeneralSettingsTab: View {
     @AppStorage("tx.launchAtLogin") private var launchAtLogin = false
     @AppStorage("tx.showRecordingPill") private var showRecordingPill = true
+    @AppStorage(InterfaceLanguage.preferenceKey) private var languagePreference = InterfaceLanguage.system.rawValue
 
     var body: some View {
         Form {
+            Picker("Interface language", selection: $languagePreference) {
+                Text("System default").tag(InterfaceLanguage.system.rawValue)
+                Text("English").tag(InterfaceLanguage.english.rawValue)
+                Text("Português (Brasil)").tag(InterfaceLanguage.portugueseBrazil.rawValue)
+            }
+            Text("Uses Brazilian Portuguese when the Mac's primary language is Portuguese (Brazil); English otherwise. A manual choice overrides the system.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
             Toggle("Iniciar com o sistema", isOn: $launchAtLogin)
             Toggle("Mostrar pílula flutuante durante gravação", isOn: $showRecordingPill)
         }
@@ -51,12 +62,12 @@ struct PermissionsSettingsTab: View {
                 HStack {
                     Label("Microfone", systemImage: "mic")
                     Spacer()
-                    Text(micPermission).foregroundStyle(.secondary)
+                    Text(InterfaceStrings.text(micPermission)).foregroundStyle(.secondary)
                 }
                 HStack {
                     Label("Acessibilidade", systemImage: "accessibility")
                     Spacer()
-                    Text(accessibility ? "concedida" : "não concedida")
+                    Text(InterfaceStrings.text(accessibility ? "concedida" : "não concedida"))
                         .foregroundStyle(accessibility ? .green : .orange)
                     Button("Abrir Ajustes") {
                         openAccessibilitySettings()
@@ -102,7 +113,7 @@ struct ModelsSettingsTab: View {
         Form {
             Picker("Modelo Whisper", selection: $selected) {
                 ForEach(WhisperModel.allCases) { model in
-                    Text(model.displayName).tag(model)
+                    Text(InterfaceStrings.text(model.displayName)).tag(model)
                 }
             }
             .onChange(of: selected) { _, newValue in
@@ -120,7 +131,7 @@ struct ModelsSettingsTab: View {
                 }
                 .disabled(isLoading)
                 Spacer()
-                Text(status).font(.caption).foregroundStyle(.secondary)
+                Text(InterfaceStrings.text(status)).font(.caption).foregroundStyle(.secondary)
             }
         }
         .formStyle(.grouped)
@@ -278,12 +289,12 @@ struct IntelligenceSettingsTab: View {
                     Text("Gemini API").tag("gemini")
                 }
                 HStack {
-                    Button(codexConnected ? "Verificar conexão" : "Conectar com ChatGPT") {
+                    Button(InterfaceStrings.text(codexConnected ? "Verificar conexão" : "Conectar com ChatGPT")) {
                         Task { await connectCodex() }
                     }
                     .disabled(codexBusy)
                     if codexBusy { ProgressView().controlSize(.small) }
-                    Text(codexStatus)
+                    Text(InterfaceStrings.text(codexStatus))
                         .font(.caption)
                         .foregroundStyle(codexConnected ? .green : .secondary)
                 }
@@ -327,7 +338,7 @@ struct IntelligenceSettingsTab: View {
                     }
                     .disabled(apiKey.isEmpty || isTesting)
 
-                    Text(testStatus)
+                    Text(InterfaceStrings.text(testStatus))
                         .font(.caption)
                         .foregroundStyle(testStatus.contains("OK") || testStatus.contains("Salva") ? .green : .red)
                 }
@@ -340,12 +351,12 @@ struct IntelligenceSettingsTab: View {
             Section("Modelo Gemini para resumos / atas / briefings") {
                 Picker("Modelo", selection: $intelligenceModelRaw) {
                     ForEach(GeminiModel.allCases) { m in
-                        Text(m.displayName).tag(m.rawValue)
+                        Text(InterfaceStrings.text(m.displayName)).tag(m.rawValue)
                     }
                 }
                 .disabled(intelligenceProvider != "gemini")
                 if intelligenceProvider == "gemini" {
-                    Text(intelligenceModel.costHint)
+                    Text(InterfaceStrings.text(intelligenceModel.costHint))
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                 } else {
@@ -360,10 +371,10 @@ struct IntelligenceSettingsTab: View {
                 if useGeminiTranscription {
                     Picker("Modelo de transcrição", selection: $transcriptionModelRaw) {
                         ForEach(GeminiModel.allCases) { m in
-                            Text(m.displayName).tag(m.rawValue)
+                            Text(InterfaceStrings.text(m.displayName)).tag(m.rawValue)
                         }
                     }
-                    Text(transcriptionModel.costHint)
+                    Text(InterfaceStrings.text(transcriptionModel.costHint))
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                     Text("Áudio enviado para Google. Limite inline 18MB. Acima disso, Whisper local é usado como fallback.")
@@ -552,7 +563,7 @@ struct LogsSettingsTab: View {
                     }
                 }
             }
-            Text("Arquivo: \(logPath)")
+            Text(InterfaceStrings.format("File: %@", logPath))
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }

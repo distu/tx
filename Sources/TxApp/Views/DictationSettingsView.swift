@@ -56,7 +56,7 @@ struct DictationSettingsView: View {
 
     private func permRow(_ title: String, status: DictationPermission, open: @escaping () -> Void) -> some View {
         HStack {
-            Text(title).frame(width: 160, alignment: .leading)
+            Text(InterfaceStrings.text(title)).frame(width: 160, alignment: .leading)
             statusIndicator(for: status)
             Spacer()
             Button("Abrir ajustes", action: open)
@@ -131,7 +131,7 @@ struct DictationSettingsView: View {
 
     private func stepper(_ label: String, value: Binding<Int>, range: ClosedRange<Int>, step: Int) -> some View {
         HStack {
-            Text(label).frame(width: 220, alignment: .leading)
+            Text(InterfaceStrings.text(label)).frame(width: 220, alignment: .leading)
             Stepper(value: value, in: range, step: step) {
                 Text("\(value.wrappedValue)").monospacedDigit()
             }

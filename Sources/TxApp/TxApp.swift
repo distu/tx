@@ -4,6 +4,7 @@ import TxCore
 @main
 struct TxApp: App {
     @Environment(\.openWindow) private var openWindow
+    @AppStorage(InterfaceLanguage.preferenceKey) private var languagePreference = InterfaceLanguage.system.rawValue
     @State private var appState: AppState?
     @State private var initializationError: String?
     @State private var hudController: DictationHUDController?
@@ -13,6 +14,7 @@ struct TxApp: App {
             if let appState {
                 MenuBarContent()
                     .environment(appState)
+                    .environment(\.locale, interfaceLocale)
                     .frame(width: 420, height: 520)
             } else if let initializationError {
                 VStack(spacing: 12) {
@@ -43,6 +45,7 @@ struct TxApp: App {
             if AppState.isScreenshotDemo, let appState {
                 MenuBarContent()
                     .environment(appState)
+                    .environment(\.locale, interfaceLocale)
                     .frame(width: 420, height: 520)
             }
         }
@@ -53,6 +56,7 @@ struct TxApp: App {
             if let appState {
                 MainWindow()
                     .environment(appState)
+                    .environment(\.locale, interfaceLocale)
             } else {
                 Text("Carregando…")
             }
@@ -64,6 +68,7 @@ struct TxApp: App {
             if let appState {
                 DictationHistoryView()
                     .environment(appState)
+                    .environment(\.locale, interfaceLocale)
             } else {
                 Text("Carregando…")
             }
@@ -72,6 +77,7 @@ struct TxApp: App {
 
         Window("tx — Conserta texto", id: "text-fix") {
             TextFixView()
+                .environment(\.locale, interfaceLocale)
         }
         .defaultSize(width: 640, height: 480)
 
@@ -79,6 +85,7 @@ struct TxApp: App {
             if let appState {
                 DictationDebugView()
                     .environment(appState)
+                    .environment(\.locale, interfaceLocale)
             } else {
                 Text("Carregando…")
             }
@@ -89,6 +96,7 @@ struct TxApp: App {
             if let appState {
                 SettingsView()
                     .environment(appState)
+                    .environment(\.locale, interfaceLocale)
             }
         }
     }
@@ -98,6 +106,11 @@ struct TxApp: App {
             return "mic.circle.fill"
         }
         return "mic.circle"
+    }
+
+    private var interfaceLocale: Locale {
+        let preference = InterfaceLanguage(rawValue: languagePreference) ?? .system
+        return InterfaceLanguage.resolved(preference: preference).locale
     }
 
     private func initialize() {

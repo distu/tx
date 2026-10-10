@@ -76,7 +76,7 @@ struct MenuBarContent: View {
                 Image(systemName: "arrow.clockwise")
             }
             .buttonStyle(.borderless)
-            .help("Atualizar lista de processos")
+            .help(InterfaceStrings.text("Atualizar lista de processos"))
         }
         .padding(.horizontal)
         .padding(.vertical, 10)
@@ -93,7 +93,7 @@ struct MenuBarContent: View {
             }
 
             if let err = appState.dictationError {
-                Text(err)
+                Text(InterfaceStrings.text(err))
                     .font(.caption2)
                     .foregroundStyle(.orange)
                     .fixedSize(horizontal: false, vertical: true)
@@ -196,7 +196,7 @@ struct MenuBarContent: View {
             }
 
             if let errorMessage {
-                Text(errorMessage)
+                    Text(InterfaceStrings.text(errorMessage))
                     .font(.caption)
                     .foregroundStyle(.red)
                     .padding(.top, 4)
@@ -323,7 +323,7 @@ struct ProcessRow: View {
             }
             .buttonStyle(.borderless)
             .disabled(isStarting)
-            .help("Gravar o áudio de toda a instância de \(process.name)")
+            .help(InterfaceStrings.format("Record all audio from %@", process.name))
         }
         .padding(.vertical, 4)
     }
@@ -336,8 +336,8 @@ struct ProcessRow: View {
                 .font(.caption)
                 .lineLimit(2)
             Text(rooms[0].isTeams
-                 ? "Teams · áudio de todo o \(process.name)"
-                 : "Meet \(rooms[0].roomCode) · áudio de todo o \(process.name)")
+                 ? InterfaceStrings.format("Teams · all audio from %@", process.name)
+                 : InterfaceStrings.format("Meet %@ · all audio from %@", rooms[0].roomCode, process.name))
                 .font(.caption2)
                 .foregroundStyle(.secondary)
         case .rooms(let rooms) where rooms.count > 1:
@@ -346,7 +346,7 @@ struct ProcessRow: View {
                     .font(.caption2)
                     .lineLimit(1)
             }
-            Text("\(rooms.count) abas de reunião · gravação mistura todo o áudio do \(process.name). Separe por navegador ou instância.")
+            Text(InterfaceStrings.format("%d meeting tabs · recording mixes all audio from %@. Use separate browsers or instances.", rooms.count, process.name))
                 .font(.caption2)
                 .foregroundStyle(.orange)
                 .fixedSize(horizontal: false, vertical: true)
@@ -354,14 +354,14 @@ struct ProcessRow: View {
             Text("Título da reunião não identificado")
                 .font(.caption)
                 .foregroundStyle(.secondary)
-            Text("Nenhuma sala Meet ou Teams encontrada · gravação cobre todo o \(process.name)")
+            Text(InterfaceStrings.format("No Meet or Teams room found · recording covers all of %@", process.name))
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
         case .unavailable:
             Text("Título da reunião não identificado")
                 .font(.caption)
                 .foregroundStyle(.secondary)
-            Text("Associação não confirmada · áudio de todo o \(process.name). Para separar, use navegadores ou instâncias diferentes.")
+            Text(InterfaceStrings.format("Meeting match unconfirmed · all audio from %@. Use separate browsers or instances.", process.name))
                 .font(.caption2)
                 .foregroundStyle(.orange)
                 .fixedSize(horizontal: false, vertical: true)

@@ -19,14 +19,17 @@ It records each selected app process into separate application and microphone tr
 | Dictation | Hold Fn to speak, release to transcribe and paste; double tap Fn to lock; press Escape to cancel. |
 | Searchable library | Stores sessions, segments, projects, and dictation history in a local SQLite database with full text search. |
 | Meeting notes | Generates minutes and briefings from transcript text using a ChatGPT signed-in Codex CLI or an optional Gemini API key. |
+| Interface languages | English and Brazilian Portuguese. The first run follows the Mac's primary language: Brazilian Portuguese for `pt-BR`, English otherwise. Change it any time in Settings → General. |
 
 ### Screenshots
 
-These screenshots use an isolated demonstration profile and contain no real meetings or account details.
+These English UI screenshots use an isolated demonstration profile and contain no real meetings or account details.
 
 | Session library | Settings | Menu bar |
 | --- | --- | --- |
-| ![tx session library with synthetic demo sessions](docs/screenshots/library.jpg) | ![tx transcription and intelligence settings](docs/screenshots/settings.jpg) | ![tx menu bar controls in the demo profile](docs/screenshots/menu-bar.jpg) |
+| ![tx session library with synthetic demo sessions](docs/screenshots/library-en.jpg) | ![tx transcription and intelligence settings](docs/screenshots/settings-en.jpg) | ![tx menu bar controls in the demo profile](docs/screenshots/menu-bar-en.jpg) |
+
+![tx interface language selector with System default, English, and Brazilian Portuguese options](docs/screenshots/language-en.jpg)
 
 ## Requirements
 
@@ -56,6 +59,8 @@ To install the built app manually, quit any running tx instance and copy `.build
 4. Open **Library** to inspect saved audio and transcription; use **Transcribe now** if a completed recording still has no transcript.
 5. For dictation, enable it in the menu bar, then hold Fn while speaking and release it to paste the result.
 
+The interface defaults to **System default** in **Settings → General → Interface language**. You can explicitly choose English or Português (Brasil); this affects menus and screens, not the language used to transcribe speech.
+
 On some Macs, the system's Globe/Fn shortcut intercepts Fn. Set **System Settings → Keyboard → Press 🌐 key to → Do Nothing** if tx does not receive the key.
 
 ## Local and optional cloud processing
@@ -77,7 +82,7 @@ On some Macs, the system's Globe/Fn shortcut intercepts Fn. Set **System Setting
 - Browser integrations are evolving. Chrome/Arc Meet and web Teams have received hands-on development testing; Safari and native Teams need more validation.
 - Local speech recognition can return incorrect words or text during silence. Inspect recordings and transcripts, especially for important decisions.
 - Gemini audio requests currently have an 18 MB inline limit. Larger files use local transcription when available.
-- There is no signed, notarized public binary. The app interface currently uses Portuguese; English UI localization is planned.
+- There is no signed, notarized public binary. The current interface supports English and Brazilian Portuguese; some system or third party error text may still follow the provider's language.
 
 Please report reproducible problems through [GitHub Issues](https://github.com/distu/tx/issues), without attaching private recordings or transcripts.
 
@@ -94,7 +99,7 @@ The macOS app target is `TxApp`; the capture, transcription, database, and proce
 ## Roadmap
 
 - Improve mute state coverage and end to end tests across browsers and native meeting clients.
-- Add English localization and accessible onboarding.
+- Expand accessibility and onboarding in both interface languages.
 - Improve long audio handling and transcription quality checks.
 - Add export formats and a notarized release workflow.
 - Expand contributor friendly test fixtures without real user audio.

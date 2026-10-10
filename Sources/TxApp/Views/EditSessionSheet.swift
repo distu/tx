@@ -312,7 +312,7 @@ struct EditSessionSheet: View {
                         )
                 }
                 .buttonStyle(.plain)
-                .help(preset.name)
+                .help(InterfaceStrings.text(preset.name))
             }
         }
     }

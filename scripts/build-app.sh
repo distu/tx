@@ -27,6 +27,10 @@ mkdir -p "$APP_BUNDLE/Contents/Resources"
 
 cp "$BIN_PATH" "$APP_BUNDLE/Contents/MacOS/$APP_NAME"
 cp "$ROOT/Sources/TxApp/App/Info.plist" "$APP_BUNDLE/Contents/Info.plist"
+for localization in "$ROOT/Sources/TxApp/App/Localization/"*.lproj; do
+    [[ -d "$localization" ]] || continue
+    cp -R "$localization" "$APP_BUNDLE/Contents/Resources/"
+done
 
 # Copia ícone se existir
 ICNS="$ROOT/Sources/TxApp/App/AppIcon.icns"
